@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import "./App.css";
 import { data } from './data.js';
-import { imge } from './ou.png';
 import { Table, Button, Input, Form } from 'reactstrap';
 
 class App extends Component {
@@ -9,16 +9,55 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      emails: [],
-      phones: [],
-      names: []
+      emails: []
     }
   }
+  
+  // componentWillMount() {
+  //   const ax = axios.create({
+  //     baseURL: 
+  //     'http://localhost:3000'
+  //   })
+  //   ax.get('.../data.json')
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //         this.setState({
+  //           emails: response.data
+  //         })
+  //         console.log(this.state.emails)
+  //       }
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     })
+  // }
+
 
   render() {
-    return (
-      data.map((email) => (
-        <div>
+      return (
+        data.map((email) => (
+          <Table>
+            <td>
+              {email.name}
+            </td>
+          </Table>
+
+        )
+        
+      
+    ))
+    
+  }
+}
+
+export default App;
+
+
+
+
+
+
+<div>
           <nav class="navbar navbar-expand-lg" className="nav">
             <img src="imge" class="rounded-circle" className="img" alt=""></img> 
           </nav>
@@ -63,9 +102,3 @@ class App extends Component {
               </Table>
           </div>
         </div>
-      ))
-    )
-  }
-}
-
-export default App;
