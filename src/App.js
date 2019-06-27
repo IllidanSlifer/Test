@@ -1,28 +1,77 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { Button } from 'react-bootstrap';
+import React, { Component } from 'react';
+import axios from 'axios';
+//import json from './data.json';
+import { Table, Button } from 'reactstrap';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Button bsStyle='success'>Hi</Button>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      emails: []
+    }
+  }
+  
+  componentWillMount() {
+    const ax = axios.create({
+      baseURL: 
+      'http://localhost:3000'
+    })
+    ax.get('.../data.json')
+    // axios.get('../data.json')  // JSON File Path
+    //   .then((response) => {
+    //     console.log(response.data);
+      // this.setState({
+      //   emails: response.data
+      // });
+    //})
+    .catch (function (error) {
+      console.log(error);
+    });
+  }
+
+
+  render() {
+    let emails = this.state.emails.map((email) => {
+      return (
+        <tr key={email.email}>
+          <td>{email.name}</td>
+          <td>{email.address}</td>
+          <td>{email.email}</td>
+          <td>{email.age}</td>
+          <td>{email.notes}</td>
+          <td>{email.phoneNumbers}</td>
+          <td>{email.relatives}</td>
+          <td>
+            <Button color="success" size="sm">View</Button>
+          </td>
+        </tr>
+      )
+    });
+    return (
+      <div className="App container">
+        <h1>This is a test</h1>
+        <Table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Email</th>
+              <th>Age</th>
+              <th>Notes</th>
+              <th>Phone Numbers</th>
+              <th>Relatives</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {emails}
+          </tbody>
+        </Table>
+      </div>
+    );
+  }
 }
 
 export default App;
