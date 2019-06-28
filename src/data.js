@@ -92,4 +92,4 @@ export const data = [
     "relatives": []
   }
 ]
-
+export default data;

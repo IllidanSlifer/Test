@@ -102,3 +102,10 @@ export default App;
               </Table>
           </div>
         </div>
+
+        {/* <Input
+                  class="form-control mr-sm-2"
+                  type="email"
+                  placeholder="Email"
+                  aria-label="Go"
+                ></Input> */}

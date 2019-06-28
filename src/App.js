@@ -1,22 +1,32 @@
 import React, { Component } from 'react';
 import "./App.css";
-import { data } from './data.js';
+import data  from './data.js';
 import { imge } from './ou.png';
 import SearchInput, { createFilter } from 'react-search-input'
 import { Table, Button, Input, Form, Label } from 'reactstrap';
 
+const KEYS_TO_FILTERS = ['data.email']
+
 class App extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       emails: [],
-      list: [this.phoneNumber],
-      list2: [this.relatives]
+      searchTerm: ''
     }
+    this.searchUpdated = this.searchUpdated.bind(this)
   }
 
+  componentDidMount(){
+    this.setState({
+      data: data
+    })
+    console.log(this.state.data);
+  }
+  
   render() {
+    const filteredEmails = data.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
     return (
       <div>
         <nav class="navbar navbar-expand-lg" className="nav">
@@ -27,24 +37,21 @@ class App extends Component {
             <h1>Search Any Email Address</h1>
             <Form class="form-inline md-form mr-auto mb-6">
               <div className="email" class="input-group">
-                <Input
-                  class="form-control mr-sm-2"
-                  type="email"
-                  placeholder="Email"
-                  aria-label="Go"
-                //onChange={this.handleChange()}
-                ></Input>
+                <SearchInput className="search-input" class=""  onChange={this.searchUpdated} />
+                {filteredEmails.map((email) => (
+                  <div className="email" key={email.email}></div>
+                ))}
                 <div class="input-group-append">
                   <Button class="btn btn-secondary" type="button">
                     <i class="fa fa-search">Go</i>
                   </Button>
                 </div>
-              </div>
+              </div> 
             </Form>
           </div>
         </div>
         <br></br>
-        {data.map((email)  => (
+        {filteredEmails.map((email)  => (
           <div className="main">
             <div class="jumbotron">
               <h1 class="display-4">Result</h1>
@@ -64,11 +71,17 @@ class App extends Component {
                   <h3>Address</h3>
                   <h6>{email.address}</h6>
                 </div>
+                
                 <div class="col-md-6 mb-3 sm-4">
                   <h3>Phone Numbers</h3>
-                  <ul>
-                    {/* <li>{email.phoneNumbers}</li> */}
-                  </ul>
+                  {email.phoneNumbers.map((phone) => (
+                    <div>
+                      
+                      <ul>
+                        <li>{phone.phone}</li>
+                      </ul>
+                    </div>
+                  ))}
                 </div>
               </div>
               <div class="form-row">
@@ -76,10 +89,16 @@ class App extends Component {
                   <h3>Email</h3>
                   <h6>{email.email}</h6>
                 </div>
+                
                 <div class="col-md-6 mb-3 sm-4">
                   <h3>Relavites</h3>
-                  <ul>{email.relatives.name}</ul>
-                  {/* <h6>{email.relatives}</h6> */}
+                  {email.relatives.map((relative) => (
+                  <div>
+                      <ul>
+                        <li><li>{relative.name}</li></li>
+                      </ul>
+                  </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -87,6 +106,9 @@ class App extends Component {
         ))}
       </div>
     )
+  }
+  searchUpdated(term) {
+    this.setState({ searchTerm: term })
   }
 }
 
