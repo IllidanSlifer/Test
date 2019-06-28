@@ -37,7 +37,7 @@ class App extends Component {
             <h1>Search Any Email Address</h1>
             <Form class="form-inline md-form mr-auto mb-6">
               <div className="email" class="input-group">
-                <SearchInput className="search-input" class=""  onChange={this.searchUpdated} />
+                <Input className="search-input" class="" placeholder="Type an email"  onChange={this.searchUpdated}></Input>
                 {filteredEmails.map((email) => (
                   <div className="email" key={email.email}></div>
                 ))}
@@ -51,8 +51,9 @@ class App extends Component {
           </div>
         </div>
         <br></br>
-        {filteredEmails.map((email)  => (
-          <div className="main">
+        
+        <div className="main">
+          {filteredEmails.map((email) => (
             <div class="jumbotron">
               <h1 class="display-4">Result</h1>
               <hr class="my-4"></hr>
@@ -71,12 +72,11 @@ class App extends Component {
                   <h3>Address</h3>
                   <h6>{email.address}</h6>
                 </div>
-                
+
                 <div class="col-md-6 mb-3 sm-4">
                   <h3>Phone Numbers</h3>
                   {email.phoneNumbers.map((phone) => (
                     <div>
-                      
                       <ul>
                         <li>{phone.phone}</li>
                       </ul>
@@ -89,21 +89,22 @@ class App extends Component {
                   <h3>Email</h3>
                   <h6>{email.email}</h6>
                 </div>
-                
+
                 <div class="col-md-6 mb-3 sm-4">
                   <h3>Relavites</h3>
                   {email.relatives.map((relative) => (
-                  <div>
+                    <div>
                       <ul>
                         <li><li>{relative.name}</li></li>
                       </ul>
-                  </div>
+                    </div>
                   ))}
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>  
+        
       </div>
     )
   }
