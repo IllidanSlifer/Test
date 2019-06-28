@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import "./App.css";
 import data  from './data.js';
-import { imge } from './ou.png';
 import SearchInput, { createFilter } from 'react-search-input'
 import { Table, Button, Input, Form, Label } from 'reactstrap';
 
@@ -30,7 +29,7 @@ class App extends Component {
     return (
       <div>
         <nav class="navbar navbar-expand-lg" className="nav">
-          <img src="imge" class="rounded-circle" className="img" alt=""></img>
+          <img src="" class="rounded-circle" className="img" alt=""></img>
         </nav>
         <div className="app">
           <div className="app-container" class="form-group">
